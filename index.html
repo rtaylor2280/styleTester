@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProffieOS Style Preview</title>
+    <style>
+        #webgl-canvas { 
+            background: #333; 
+            border: 1px solid #666;
+        }
+        .controls {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>ProffieOS Blade Style Preview</h2>
+    
+    <!-- Canvas for blade rendering -->
+    <canvas id="webgl-canvas" width="800" height="200"></canvas>
+    
+    <!-- Basic controls -->
+    <div class="controls">
+        <button onclick="ClickPower()">Power</button>
+        <button onclick="ClickClash()">Clash</button>
+        <button onclick="ClickLockup()">Lockup</button>
+        <button onclick="ClickBlast()">Blast</button>
+        <button onclick="ClickDrag()">Drag</button>
+    </div>
+    
+    <!-- Style input -->
+    <textarea id="style" rows="4" cols="80">
+StylePtr<AudioFlicker<RotateColorsX<Variation,Blue>,RotateColorsX<Variation,Rgb<0,0,128>>>>()
+    </textarea>
+    <button onclick="updateStyle()">Update Style</button>
+    
+    <!-- Hidden fields the library expects -->
+    <input type="hidden" id="ARGSTR" value="builtin 0 1">
+    <input type="hidden" id="blade_angle_input" value="0">
+    
+    <!-- Include required elements for the library -->
+    <div style="display:none">
+        <div id="Enhance"></div>
+        <input id="currentstyle" value="">
+        <select id="styleType"><option value="main">Main</option></select>
+    </div>
+    
+    <script src="library-7-0.js"></script>
+    <script>
+        // Initialize on load
+        window.onload = function() {
+            // Initialize WebGL
+            if (typeof initGL === 'function') {
+                initGL();
+            }
+            
+            // Start rendering
+            if (typeof Run === 'function') {
+                Run();
+            }
+            
+            // Turn on blade
+            if (!STATE_ON) {
+                ClickPower();
+            }
+        };
+        
+        // Update style from textarea
+        function updateStyle() {
+            var styleCode = document.getElementById('style').value;
+            document.getElementById('style').value = styleCode;
+            Run();
+        }
+    </script>
+</body>
+</html>
